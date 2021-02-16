@@ -23,8 +23,9 @@
 - Levar para oGitHub
 
   - confirmar se user e email do Git e Git hub são iguais
-    - verificar conta no git :  **git config --list**
-
+    
+  - verificar conta no git :  **git config --list**
+    
   - criar repositório no GitHub
 
   - copiar URL do repositório criada
@@ -37,7 +38,7 @@
 
     - **git remote -v**
 
-    - **gir push origin master**
+    - **git push origin master**
 
       
 
