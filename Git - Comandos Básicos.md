@@ -1,4 +1,4 @@
-**Sequencia básica Git** 
+**gitSequencia básica Git** 
 
 - Instalar o Git em sua maquina :
 
