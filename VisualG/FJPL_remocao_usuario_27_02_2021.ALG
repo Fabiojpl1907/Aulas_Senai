@@ -184,6 +184,7 @@ enquanto menu <> 5 faca
                      escreval(" ")
                     escreval("<< Nenhum Usuário cadastrado >> ")
                     escreval("--------------------------")
+                    espera()
                fimse
                // Fim busca de usuários
 
