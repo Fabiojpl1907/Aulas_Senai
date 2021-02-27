@@ -46,7 +46,21 @@
 
   - **git pull origin master**
 
-    
+
+
+
+
+
+**Conceitos Gerais do GIT**
+
+ 
+
+Git utiliza um algorismo de encriptação chamado SHA1 que é uma função de dispersão criptográfica, desta forma, ele encapsula cada estrutura hierarquica do Git, no caso:
+
+1. Os Blobs (que seria os arquivos);
+2. As Trees (que seria os diretórios onde estão os arquivos (blobs) rastreados pelo Git);
+3. E os Commites que possui informações especifica sobre o autor, timestamp, mensagem, e sobre a estrutura de blobs e trees (que são um rótulo a toda a estrutura modificada (diretórios/arquivos)).
+4. 
 
 **Controle Documento** 
 
