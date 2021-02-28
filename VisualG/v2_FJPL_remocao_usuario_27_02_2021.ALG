@@ -14,26 +14,29 @@ fimregistro
 
 Var
 
-// premissa : maximo 10 usuários pois o Visualg obriga um parametro
-func : vetor[0..10] de cadastro
-
 // Seção de Declarações das variáveis
-linha,coluna, menu, l , c : inteiro
+linha,coluna, menu, l , c, final : inteiro
 nome, limpa : caractere
+func : vetor[0..9] de cadastro
+
+// Funcoes e procedimentos___________________________________________________
 
 // declaração da função busca
 funcao busca(n : caracter; li: inteiro): inteiro
     Var
     l : inteiro  // linha de resgisto
+    Ok : inteiro
     inicio
+    Ok <- 0
     Para l de 0 ate li faca
          se (func[l].nome = n ) entao
             retorne l
+            ok <- 1
             interrompa // sai do ciclo Para ... Fimpara
          fimse
     Fimpara
     // não encontrou  nome
-    se ( l = li ) entao
+    se ( ok = 0  ) entao
        retorne -1
     fimse
 fimfuncao
@@ -44,17 +47,23 @@ inicio
    func[li].nome <- "" // limpa nome do usuario removido
    func[li].idade <- 0 // limpa idade do usuario removido
    // refaz vetor , rearranjando usuario a partir do registro removido
-   enquanto li <= fim-1 faca
+
+   enquanto li < fim faca
       func[li].nome <-  func[li+1].nome
       func[li].idade <-  func[li+1].idade
-      li <- li +1
+      li <- li + 1
    fimenquanto
+   func[fim].nome <-  ""
+   func[fim].idade <-  0
+   linha <- linha-1 // ajustando total de registro atuais
+
    //lista usuarios na nova ordem
    li <- 0
    escreval( " ")
    escreval("-----------------------------")
    escreval("Lista de usuários atualizada")
    escreval("-----------------------------")
+
    Enquanto  func[li].nome <> "" faca
       escreval("Usuário: #", li+1," - ",func[li].nome, " - ", func[li].idade, " anos")
       li <- li + 1
@@ -70,11 +79,15 @@ inicio
       leia(limpa)
 fimprocedimento
 
+//Termino funcoes e procedimentos ______________________________________
+
+// Inicio do programa principal_________________________________________
 Inicio
 // inicializar variaveis
 linha<- 0
 coluna <- 0
 menu <- 0
+final <- 9 // ultimo indicador do vetor
 
 // Iniciar o loop de menu
 enquanto menu <> 5 faca
@@ -100,6 +113,7 @@ enquanto menu <> 5 faca
                // Cadastro usuário
                escreval("------------------------")
                escreval("Cadastro de novo usuário")
+               escreval("Limite ->",final+1, " usuários")
                escreval("-------------------------")
                enquanto limpa <> "*" faca
                   escreva("Nome funcionário : ")
@@ -107,6 +121,13 @@ enquanto menu <> 5 faca
                   escreva("Idade : ")
                   leia(func[linha].idade)
                   linha <- linha + 1 // atualiza para proximo usuário
+                  // tratar limite de cadastros posiveis
+                  se ( linha = final+1) entao
+                     escreval(" ")
+                     escreval("Limite de Usuários Alcançados")
+                     espera()
+                     interrompa
+                  fimse
                   escreval(" ")
                   escreval("Digite 'Enter' para continuar cadastro de usuário")
                   escreva("Digite '*' para encerrar cadastro : ")
@@ -121,15 +142,15 @@ enquanto menu <> 5 faca
                escreval("Lista Usuários cadastrados")
                escreval("----------------------------")
                l <- 0
-               c <- 0
-               se  func[l].nome <> "" entao
-                   Enquanto  func[l].nome <> "" faca
-                      escreval("Usuário: #", l+1," - ",func[l].nome, " - ", func[l].idade, " anos")
-                       l <- l + 1
-                   Fimenquanto
-                 senao
-                    escreva( " ")
-                    escreval("Não há usuários cadastrados")
+               se  (func[l].nome = "") entao
+                       escreva( " ")
+                       escreval("Não há usuários cadastrados")
+                  senao
+                       para l de 0 ate final faca
+                        se func[l].nome <> ""  entao
+                           escreval("Usuário: #", l+1," - ",func[l].nome, " - ", func[l].idade, " anos")
+                        fimse
+                       fimpara
                fimse
                escreval("----------------------------")
                espera()
@@ -143,7 +164,7 @@ enquanto menu <> 5 faca
                escreva("Nome do usuário desejado: ")
                leia(nome)
                se (linha > 0 ) entao
-                    l <- busca(nome,linha)
+                    l <- busca(nome,final)
                     se (l <> -1)  entao
                        escreval(" ")
                        escreval("Usuário: #", l+1," - ",func[l].nome, " - ", func[l].idade, " anos")
@@ -167,13 +188,13 @@ enquanto menu <> 5 faca
                escreval("------------------------")
                escreva("Nome do usuário a ser removido: ")
                leia(nome)
-               se (linha > 0 ) entao
-                    l <- busca(nome,linha)
+               se ( Func[1].nome <> "" ) entao
+                    l <- busca(nome,linha-1)
                     se (l <> -1)  entao
                        escreval(" ")
                        escreval("Usuário a ser excluido: #", l+1," - ",func[l].nome, " - ", func[l].idade, " anos")
                        // chamar procedimento de exclusão
-                        remover(l,linha)
+                        remover(l,final)
                       // fim procedimento de exclusão
                      senao
                        escreval( "  ")
@@ -182,7 +203,7 @@ enquanto menu <> 5 faca
                    escreval("--------------------------")
                  senao
                      escreval(" ")
-                    escreval("<< Nenhum Usuário cadastrado >> ")
+                    escreval("<< Usuário não cadastrado >> ")
                     escreval("--------------------------")
                     espera()
                fimse
