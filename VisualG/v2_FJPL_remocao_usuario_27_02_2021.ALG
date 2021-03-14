@@ -48,14 +48,6 @@ inicio
    func[li].idade <- 0 // limpa idade do usuario removido
    // refaz vetor , rearranjando usuario a partir do registro removido
 
-   enquanto li < fim faca
-      func[li].nome <-  func[li+1].nome
-      func[li].idade <-  func[li+1].idade
-      li <- li + 1
-   fimenquanto
-   func[fim].nome <-  ""
-   func[fim].idade <-  0
-   linha <- linha-1 // ajustando total de registro atuais
 
    //lista usuarios na nova ordem
    li <- 0
